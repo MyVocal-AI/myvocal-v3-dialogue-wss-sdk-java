@@ -1,0 +1,14 @@
+MyVocal V3 Dialogue Multi-Context WebSocket SDKs
+Copyright 2026 MyVocal AI
+
+Licensed under the Apache License, Version 2.0.
+
+Runtime dependencies:
+
+- OkHttp 3.14.9 and Okio 1.17.2, Apache License 2.0
+  https://square.github.io/okhttp/
+- JSON-java 20231013, public-domain dedication
+  https://github.com/stleary/JSON-java
+
+Test-only components include JUnit and MockWebServer. Their license terms
+remain available from their respective projects and package metadata.
