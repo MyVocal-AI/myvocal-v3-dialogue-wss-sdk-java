@@ -19,6 +19,7 @@ public final class ConnectionOptions {
         Arrays.asList("auto", "on", "off"));
 
     private final String endpoint;
+    private final String modelId;
     private final String format;
     private final String languageCode;
     private final boolean timestamps;
@@ -51,6 +52,7 @@ public final class ConnectionOptions {
             throw new ValidationException("endpoint must not be empty");
         }
         this.endpoint = builder.endpoint;
+        this.modelId = builder.modelId;
         this.format = builder.format;
         this.languageCode = language;
         this.timestamps = builder.timestamps;
@@ -66,7 +68,7 @@ public final class ConnectionOptions {
     public String buildUrl() {
         StringBuilder value = new StringBuilder(endpoint).append('?');
         append(value, "priority", "dedicated_concurrency");
-        append(value, "model_id", "myvocal_v3");
+        append(value, "model_id", modelId);
         append(value, "format", format);
         append(value, "timestamps", Boolean.toString(timestamps));
         append(value, "text_normalization", textNormalization);
@@ -96,12 +98,18 @@ public final class ConnectionOptions {
 
     public static final class Builder {
         private String endpoint = DEFAULT_ENDPOINT;
+        private String modelId = "myvocal_v3";
         private String format = "mp3_128";
         private String languageCode;
         private boolean timestamps;
         private String textNormalization = "on";
         private Long seed;
         private boolean enableLogging = true;
+
+        public Builder modelId(String value) {
+            modelId = value;
+            return this;
+        }
 
         public Builder endpoint(String value) {
             endpoint = value;

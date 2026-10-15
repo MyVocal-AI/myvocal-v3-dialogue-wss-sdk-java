@@ -10,6 +10,25 @@ import static org.junit.Assert.*;
 
 public class ContractModelsTest {
     @Test
+    public void modelSelectionIsEncodedOnceWithoutWhitelist() throws Exception {
+        for (String model : new String[] {
+            "myvocal_v3", "myvocal_v4", "myvocal_v3_turbo", "future/model +1"
+        }) {
+            String query = new java.net.URI(ConnectionOptions.builder()
+                .modelId(model).build().buildUrl()).getRawQuery();
+            int count = 0;
+            for (String pair : query.split("&")) {
+                if (pair.startsWith("model_id=")) {
+                    count++;
+                    assertEquals(model, java.net.URLDecoder.decode(
+                        pair.substring("model_id=".length()), "UTF-8"));
+                }
+            }
+            assertEquals(1, count);
+        }
+    }
+
+    @Test
     public void urlContainsFixedQueryAndDefaults() {
         String url = ConnectionOptions.builder().build().buildUrl();
         assertTrue(url.contains("priority=dedicated_concurrency"));

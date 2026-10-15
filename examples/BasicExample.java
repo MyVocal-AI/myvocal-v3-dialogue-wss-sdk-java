@@ -40,7 +40,9 @@ public final class BasicExample {
             }
         };
 
+        String modelId = System.getenv("MYVOCAL_MODEL_ID");
         ConnectionOptions options = ConnectionOptions.builder()
+            .modelId(modelId == null ? "myvocal_v3" : modelId)
             .format("mp3_128")
             .languageCode("en")
             .timestamps(true)
