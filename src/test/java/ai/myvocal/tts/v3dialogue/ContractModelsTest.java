@@ -10,6 +10,29 @@ import static org.junit.Assert.*;
 
 public class ContractModelsTest {
     @Test
+    public void languageCodesReachTheConnectionQuery() {
+        for (String model : new String[]{"myvocal_v3", "myvocal_v4", "myvocal_v3_turbo"}) {
+            for (String code : new String[]{"en", "zh", "ast", "yue", "ceb", "fil", "ckb", "kam"}) {
+                String url = ConnectionOptions.builder().modelId(model)
+                    .languageCode(code.toUpperCase(java.util.Locale.ROOT)).build().buildUrl();
+                assertTrue(url.contains("language_code=" + code));
+                assertTrue(url.contains("model_id=" + model));
+            }
+        }
+    }
+
+    @Test
+    public void languageCodeFormatRemainsValidated() {
+        for (final String code : new String[]{"e", "engl", "en-US", "a1", " yue", "\u7ca4\u8bed", ""}) {
+            expectValidation(new Runnable() {
+                @Override public void run() {
+                    ConnectionOptions.builder().languageCode(code).build();
+                }
+            });
+        }
+    }
+
+    @Test
     public void modelSelectionIsEncodedOnceWithoutWhitelist() throws Exception {
         for (String model : new String[] {
             "myvocal_v3", "myvocal_v4", "myvocal_v3_turbo", "future/model +1"

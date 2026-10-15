@@ -33,9 +33,9 @@ public final class ConnectionOptions {
         }
         String language = builder.languageCode;
         if (language != null) {
-            if (!language.matches("(?i)[a-z]{2}")) {
+            if (!language.matches("(?i)[a-z]{2,3}")) {
                 throw new ValidationException(
-                    "language_code must be ISO 639-1");
+                    "language_code must contain 2 or 3 ASCII letters");
             }
             language = language.toLowerCase(java.util.Locale.ROOT);
         }

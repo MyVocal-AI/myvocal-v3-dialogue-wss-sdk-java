@@ -4,10 +4,10 @@ Java client for multi-role dialogue synthesis. Requires Java 8 or later and an e
 
 ## Install
 
-Download and extract [SDK v1.1.1](https://github.com/MyVocal-AI/myvocal-v3-dialogue-wss-sdk-java/releases/tag/v1.1.1). Install the supplied JAR and POM into your local Maven repository:
+Download and extract [SDK v1.1.2](https://github.com/MyVocal-AI/myvocal-v3-dialogue-wss-sdk-java/releases/tag/v1.1.2). Install the supplied JAR and POM into your local Maven repository:
 
 ```bash
-mvn install:install-file -Dfile=lib/myvocal-v3-dialogue-wss-sdk-1.1.1.jar -DpomFile=pom.xml
+mvn install:install-file -Dfile=lib/myvocal-v3-dialogue-wss-sdk-1.1.2.jar -DpomFile=pom.xml
 ```
 
 Add this dependency to your application:
@@ -16,7 +16,7 @@ Add this dependency to your application:
 <dependency>
   <groupId>ai.myvocal</groupId>
   <artifactId>myvocal-v3-dialogue-wss-sdk</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
 </dependency>
 ```
 
@@ -34,6 +34,17 @@ ConnectionOptions options = ConnectionOptions.builder()
     .modelId("myvocal_v4") // Or "myvocal_v3_turbo"
     .build();
 ```
+
+## Output languages
+
+`myvocal_v4` and `myvocal_v3_turbo` support the same 94 output languages. Use `zh` for Mandarin Chinese and `yue` for Cantonese. See the [language list](https://api-docs.myvocal.ai/64249845f0#输出语言) for all supported codes.
+
+```java
+ConnectionOptions options = ConnectionOptions.builder()
+    .modelId("myvocal_v4").languageCode("yue").build();
+```
+
+Omit the language option to select a language from the input text. Provide text in the desired language; the option does not translate it.
 
 ## Run the example
 
